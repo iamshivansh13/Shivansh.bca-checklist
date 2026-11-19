@@ -1,379 +1,444 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#101827">
-<title>BCA Complete Study Hub</title>
-<style>
-:root{--bg:#0b1220;--panel:#121d30;--panel2:#18263d;--text:#edf3ff;--muted:#9fb0ca;--line:#263650;--accent:#7c9cff;--green:#40d6a0;--orange:#ffbd69}
-*{box-sizing:border-box}
-body{margin:0;background:linear-gradient(135deg,#0b1220,#101c31);color:var(--text);font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial}
-header{padding:26px 18px 18px;max-width:1200px;margin:auto}
-h1{font-size:clamp(27px,5vw,42px);line-height:1.1;margin:8px 0}
-.sub{color:var(--muted);max-width:760px}
-.tag{display:inline-block;background:#21365a;color:#bcd0ff;border:1px solid #38527e;padding:5px 10px;border-radius:20px;font-size:12px}
-.wrap{max-width:1200px;margin:auto;padding:0 16px 40px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
-.stat,.card,.subject{background:var(--panel);border:1px solid var(--line);border-radius:16px}
-.stat{padding:14px}
-.stat b{display:block;font-size:24px}
-.stat span{color:var(--muted);font-size:12px}
-.progress{height:9px;background:#263650;border-radius:20px;overflow:hidden;margin-top:10px}
-.progress i{display:block;height:100%;background:linear-gradient(90deg,#6f8cff,#40d6a0);width:0}
-.tools{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0}
-.tools input,.tools select,.tools button{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit}
-.tools input{flex:1;min-width:190px}
-.tools button{cursor:pointer}
-.semnav{display:flex;gap:8px;overflow:auto;padding:3px 0 12px}
-.semnav button{white-space:nowrap;border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:10px 14px;border-radius:11px;cursor:pointer}
-.semnav button.active{background:#293d68;color:white;border-color:#6685d8}
-#courses{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.subject{padding:16px}
-.subject h3{margin:4px 0 2px;font-size:17px}
-.meta{color:var(--muted);font-size:12px}
-.unit{border-top:1px solid var(--line);margin-top:13px;padding-top:10px}
-.unit summary{cursor:pointer;color:#c9d8ff;font-weight:650}
-.topics{list-style:none;padding:0;margin:9px 0 0}
-.topics li{padding:6px 0;border-bottom:1px dashed #263650}
-.topics label{display:flex;gap:9px;align-items:flex-start;cursor:pointer}
-.topics input{accent-color:#54d9a8;margin-top:5px;flex:0 0 auto}
-.topics input:checked+span{color:#8193ad;text-decoration:line-through}
-.smallbar{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:10px}
-.note{background:#1b2a43;border:1px solid #344b70;border-radius:13px;padding:13px;color:#dce7ff;margin:16px 0}
-.foot{color:var(--muted);font-size:12px;margin-top:25px;line-height:1.6}
-.empty{padding:28px;text-align:center;color:var(--muted);grid-column:1/-1}
-@media(max-width:700px){
-#courses{grid-template-columns:1fr}
-.stats{grid-template-columns:repeat(3,1fr)}
-.stat{padding:10px}
-.stat b{font-size:20px}
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#5145e5" />
+  <title>BCA Syllabus Progress Checklist</title>
+  <style>
+    :root {
+      --bg:#f6f8fc; --card:#fff; --text:#172033; --muted:#687487;
+      --line:#e1e6ef; --primary:#5145e5; --primary-soft:#eef0ff;
+      --shadow:0 2px 8px rgba(20,30,60,.07); --danger:#c93458;
+      --chip:#f2f5fa; --success:#17865b;
+    }
+    body.dark {
+      --bg:#101522; --card:#1a2232; --text:#eef2fb; --muted:#aab5c7;
+      --line:#303b50; --primary:#8178ff; --primary-soft:#29284c;
+      --shadow:0 2px 10px rgba(0,0,0,.2); --chip:#252f42;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    .wrap{width:min(100% - 28px,1050px);margin:28px auto 60px}
+    .hero,.panel,.subject-card,.admin-card{background:var(--card);border:1px solid var(--line);border-radius:25px;box-shadow:var(--shadow)}
+    .hero{padding:34px 38px;margin-bottom:28px}
+    .eyebrow{display:inline-flex;padding:8px 16px;border-radius:30px;background:var(--primary-soft);color:var(--primary);font-weight:750;font-size:14px}
+    h1{font-size:clamp(27px,4vw,40px);line-height:1.15;margin:22px 0 12px;letter-spacing:-1.2px}
+    .hello{font-size:22px;color:var(--primary);font-weight:750;margin:0 0 6px}
+    .sub{font-size:17px;color:var(--muted);margin:0;max-width:680px}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 28px}
+    .btn{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:15px;padding:11px 17px;font-weight:700;box-shadow:0 1px 3px #0000000a}
+    .btn:hover{border-color:var(--primary);transform:translateY(-1px)}
+    .btn.primary{background:var(--primary);color:white;border-color:var(--primary)}
+    .btn.danger{color:var(--danger);background:#fff2f4;border-color:#f5d3db}
+    body.dark .btn.danger{background:#3b202c}
+    .btn.google{display:flex;align-items:center;gap:10px}
+    .google-mark{font-weight:900;font-size:21px;color:#4285f4}
+    .rule{height:1px;background:var(--line);margin:26px 0}
+    .section-label{font-size:14px;letter-spacing:.04em;font-weight:800;color:var(--muted);margin:0 0 14px}
+    .year-buttons{display:flex;gap:10px;flex-wrap:wrap}
+    .year-btn{padding:12px 19px;border-radius:15px;border:1px solid var(--line);background:var(--card);color:var(--text);font-weight:750}
+    .year-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 4px 9px #5145e544}
+    .note{color:var(--muted);margin:14px 0 0}
+    .stats{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:12px 24px;align-items:center}
+    .percent{font-size:42px;color:var(--primary);font-weight:850;letter-spacing:-1.5px}
+    .overall{font-size:19px;color:var(--muted)}
+    .stat{font-size:16px;color:var(--muted)}
+    .stat strong{color:var(--text);font-size:18px}
+    .progress{height:12px;background:var(--chip);border-radius:20px;overflow:hidden;margin-top:18px}
+    .progress>span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),#8a7cff);border-radius:20px;transition:width .25s}
+    .userline{display:flex;gap:12px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:14px}
+    .userline strong{color:var(--text)}
+    .tabs{display:flex;gap:12px;overflow-x:auto;padding:0 0 12px;margin-bottom:22px;scrollbar-color:#cbd3e0 transparent}
+    .tab{white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:18px;padding:12px 20px;font-weight:750}
+    .tab.active{background:#111827;color:#fff;border-color:#111827}
+    body.dark .tab.active{background:#eef2fb;color:#172033}
+    .tab small{background:var(--chip);padding:3px 8px;border-radius:20px;margin-left:7px}
+    .subject-card{padding:24px 26px;margin:0 0 17px}
+    .subject-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+    .code{display:inline-block;background:var(--chip);color:var(--muted);border-radius:9px;padding:6px 11px;font-size:13px;font-weight:750}
+    .subject-card h2{font-size:21px;margin:12px 0 5px}
+    .subject-card .desc{color:var(--muted);margin:0 0 17px}
+    .subject-pct{font-size:22px;color:var(--primary);font-weight:850}
+    .topic-list{display:grid;gap:9px}
+    .topic{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+    .topic input{width:19px;height:19px;accent-color:var(--primary);margin-top:3px;flex:0 0 auto}
+    .topic span{flex:1}
+    .topic.done span{text-decoration:line-through;color:var(--muted)}
+    .topic small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+    .empty{padding:26px;text-align:center;color:var(--muted)}
+    .admin{margin-top:30px}
+    .admin-card{padding:24px}
+    .admin-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .admin-head h2{margin:0}
+    .table-wrap{overflow-x:auto;margin-top:16px}
+    table{border-collapse:collapse;width:100%;min-width:620px}
+    th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line);font-size:14px}
+    th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+    .pill{display:inline-block;padding:4px 9px;border-radius:20px;background:var(--primary-soft);color:var(--primary);font-weight:750}
+    .notice{padding:12px 15px;background:var(--primary-soft);color:var(--text);border-radius:12px;margin-top:14px;font-size:13px}
+    .hidden{display:none!important}
+    footer{text-align:center;color:var(--muted);font-size:13px;margin:28px 0}
+    @media(max-width:650px){
+      .wrap{width:min(100% - 20px,1050px);margin:18px auto 45px}
+      .hero{padding:24px 20px;border-radius:22px}
+      .subject-card{padding:19px 17px}
+      .stats{grid-template-columns:1fr 1fr;gap:8px 16px}
+      .percent{font-size:36px}.overall{font-size:17px}
+      .actions .btn{padding:10px 13px}
+    }
+  </style>
 </head>
 <body>
-<header>
-<span class="tag">BCA • 6 SEMESTERS • STUDY TRACKER</span>
-<h1>BCA Complete Study Hub</h1>
-<p class="sub">Your semester-wise learning roadmap. Explore subjects, study unit by unit, tick completed topics and track your progress. Your checklist is saved in this browser on this device.</p>
-</header>
-<main class="wrap">
-<section class="stats">
-<div class="stat"><b id="done">0</b><span>Topics completed</span></div>
-<div class="stat"><b id="total">0</b><span>Total topics</span></div>
-<div class="stat"><b id="percent">0%</b><span>Overall progress</span></div>
-</section>
-<div class="progress"><i id="overall"></i></div>
-<div class="note"><b>Important syllabus note:</b> This starter roadmap follows the RMLAU BCA NEP syllabus document available for 2024–25. Semester course titles are based on that document; the topic checklists are a student-friendly study outline, not a substitute for the latest department-issued unit list. Minor, vocational and elective papers can vary by college/choice. Confirm your session's syllabus with your college.</div>
-<div class="tools">
-<input id="search" type="search" placeholder="Search subject or topic…">
-<select id="filter">
-<option value="all">All topics</option>
-<option value="pending">Pending topics</option>
-<option value="done">Completed topics</option>
-</select>
-<button id="reset">Reset progress</button>
-</div>
-<nav class="semnav" id="semnav"></nav>
-<div id="courses"></div>
-<div class="foot">
-<b>How to use:</b> Select a semester → open a subject → complete topics and tick the boxes. Progress is stored using this browser's local storage. If you clear browser data or change device/browser, progress may reset.<br>
-Official syllabus reference:
-<a href="https://rmlau.ac.in/SyllabusNew/BCA.pdf" target="_blank" rel="noopener" style="color:#9db7ff">RMLAU BCA NEP syllabus PDF</a>.
-</div>
-</main>
-<script>
-const curriculum = [
-{sem:1,subjects:[
-{code:"BCA101 T",name:"Programming Principles Using Python",units:[
-["Unit 1 • Computer fundamentals & problem solving",["Computer organization: CPU, memory and input/output units","Problem solving using computation","Algorithm: meaning, characteristics and representation","Number systems and conversions"]],
-["Unit 2 • Python basics",["Python interpreter, shell and indentation","Identifiers, keywords, literals, numbers and strings","Arithmetic, relational, Boolean, assignment, ternary and bitwise operators","Expressions, input and output statements","Conditional statements and loops","break, continue, pass and exit","Functions, default arguments, errors and exception handling"]],
-["Unit 3 • Strings and lists",["String class and built-in string functions","String traversal, operators and operations","List creation and traversal","List slicing, splitting and passing lists to functions"]],
-["Unit 4 • Object-oriented programming",["Objects, classes and methods","Standard libraries","File handling through libraries"]],
-["Unit 5 • Built-in data structures",["Tuples, sets and dictionaries","Stacks and queues","Sorting and searching"]]]},
-{code:"BCA102 T",name:"Computer System Architecture",units:[
-["Unit 1 • Data representation",["Number systems and complements","Fixed-point and floating-point representation","Binary arithmetic: addition, subtraction, multiplication and division","Logic gates and Boolean algebra","Combinational circuits and simplification","Flip-flops, sequential circuits, decoders, multiplexers, registers and counters"]],
-["Unit 2 • Basic computer organization",["Computer registers and bus system","Instruction set, timing and control","Instruction cycle","Memory-reference instructions","Input/output and interrupts","Interconnection structures and bus design"]],
-["Unit 3 • CPU organization",["Register organization and micro-operations","Stack organization and microprogrammed control","Instruction formats, codes and addressing modes","Machine language and assembly language","RISC, CISC, pipelining and parallel architecture"]],
-["Unit 4 • Memory organization",["Cache memory","Associative memory","Memory mapping techniques"]],
-["Unit 5 • Input/output organization",["External devices and I/O modules","Programmed I/O","Interrupt-driven I/O","Direct Memory Access (DMA)","I/O channels"]]]},
-{code:"BCA103",name:"Foundation of Mathematics for Computer Applications",units:[
-["Unit 1 • Set theory, relations and functions",["Sets, subsets and set operations","Power set, Venn diagrams and Cartesian product","Relations and their properties","Functions and types of functions","Composition of functions"]],
-["Unit 2 • Mathematical logic",["Statements and logical connectives","Negation, conjunction and disjunction","Truth tables and statement formulas","Conditional and biconditional statements","Tautology, contradiction and equivalence","Predicates, quantifiers and arguments"]],
-["Unit 3 • Matrix algebra",["Types of matrices and matrix operations","Transpose, determinant and inverse","Cramer's rule, rank and normal form","Echelon form and Cayley-Hamilton theorem","Eigenvalues and eigenvectors"]],
-["Unit 4 • Differential calculus",["Functions and limits","Differentiation of algebraic functions","First and second order derivatives","Maxima and minima"]],
-["Unit 5 • Integral calculus",["Integral as limit of sum","Fundamental theorem of calculus","Indefinite integrals","Substitution, integration by parts and partial fractions","Reduction formulae; Gamma and Beta functions"]]]},
-{code:"AECC 1",name:"Food, Nutrition and Hygiene",units:[["Study outline",["Food groups and balanced diet","Nutrients: carbohydrates, proteins and fats","Vitamins, minerals and water","Nutrition through life stages","Personal hygiene and sanitation","Food safety, food adulteration and healthy habits"]]]},
-{code:"BCA101 P",name:"Practical Lab • Python",units:[["Practice tasks",["Install/run Python and use the interpreter","Write input/output and arithmetic programs","Programs using if/else and loops","Functions and exception handling","String and list programs","Tuple, set and dictionary exercises","Stack, queue, searching and sorting programs","File handling mini exercises"]]]},
-{code:"BCA102 P",name:"Practical Lab • Computer System Architecture",units:[["Practice tasks",["Practice number-system conversions and binary arithmetic","Draw and verify logic gates and truth tables","Design simple combinational circuits","Study flip-flops, registers and counters","Trace instruction cycle and addressing modes","Prepare memory hierarchy and I/O diagrams"]]]}
-]},
-  {sem:2,subjects:[
-{code:"BCA201 T",name:"Object Oriented Programming Using C++",units:[
-["Unit 1 • OOP foundations",["Object-oriented approach and programming paradigms","Abstraction, encapsulation, inheritance and polymorphism","Review of C; differences between C and C++","cin, cout, new, delete and operators"]],
-["Unit 2 • Classes and objects",["Class declaration, attributes and methods","Information hiding and abstract data types","Object state, identity and behaviour","Constructors and destructors","Object creation, default arguments and dynamic memory"]],
-["Unit 3 • Inheritance and polymorphism",["Class hierarchy and derived classes","Public, private and protected inheritance","Aggregation and composition","Method and operator polymorphism","Operator overloading"]],
-["Unit 4 • Advanced OOP",["Function templates and generic functions","Function overloading and method overriding","Runtime polymorphism","Multiple inheritance"]],
-["Unit 5 • Files and exceptions",["Streams and file handling","Namespaces","Exception handling","Generic classes"]]]},
-{code:"BCA202 T",name:"Concepts of Data Structure",units:[
-["Unit 1 • Arrays",["Data structure concepts and characteristics","One-dimensional and multidimensional arrays","Sparse arrays","Lower/upper triangular and tridiagonal matrices","Vector representation"]],
-["Unit 2 • Stacks and queues",["Stack concepts and primitive operations","Applications of stacks","Infix, postfix and prefix expressions","Postfix evaluation and expression conversion","Queues, deques and priority queues"]],
-["Unit 3 • Linked lists",["Introduction to linked lists","Sequential versus linked lists","Traversal, insertion, deletion and searching","Doubly linked lists and header nodes"]],
-["Unit 4 • Trees",["Tree terminology and binary trees","Binary tree traversals","Recursive traversal, insertion and deletion","Binary search trees"]],
-["Unit 5 • B-trees, sorting and searching",["B-tree concepts and construction","Insertion, selection, merge and heap sort","Linear and binary search","Hashing"]]]},
-{code:"BCA203",name:"Discrete Mathematics",units:[
-["Unit 1 • Sets, relations, functions and algebraic structures",["Sets, subsets and set operations","Relations, composition and types of relations","Mappings and mathematical functions","Groups, subgroups and cyclic groups","Permutation groups, homomorphism and isomorphism","Rings, fields and subfields"]],
-["Unit 2 • Mathematical logic",["Statements and logical connectives","Normal forms","Inference rules for statement calculus","Predicate calculus"]],
-["Unit 3 • Graph theory basics",["Simple, complete, bipartite, multi- and pseudographs","Handshaking lemma and subgraphs","Walks, paths and circuits","Shortest path problem"]],
-["Unit 4 • Eulerian and Hamiltonian graphs",["Eulerian graphs and Fleury's algorithm","Chinese postman problem","Hamiltonian graphs and conditions","Travelling salesperson problem"]],
-["Unit 5 • Trees and spanning trees",["Tree properties, distance, radius and diameter","Spanning trees and fundamental circuits","Cayley's formula","Minimum spanning tree: Kruskal and Prim","Connectivity and separability"]]]},
-{code:"AECC 2",name:"First Aid and Health",units:[["Study outline",["Principles and aims of first aid","First-aid kit and emergency response","Wounds, bleeding, burns and fractures","Sprains, fainting and shock","CPR and basic life support awareness","Personal health, hygiene and disease prevention"]]]},
-{code:"BCA201 P",name:"Practical Lab • C++",units:[["Practice tasks",["Write basic C++ input/output programs","Create classes and objects","Use constructors and destructors","Demonstrate inheritance and polymorphism","Overload functions and operators","Use templates","Read/write files and handle exceptions"]]]},
-{code:"BCA202 P",name:"Practical Lab • Data Structure",units:[["Practice tasks",["Array insertion, deletion and traversal","Stack and queue implementation","Infix-to-postfix conversion","Linked-list operations","Binary tree traversals and BST operations","Implement sorting and searching algorithms"]]]}
-]},
-{sem:3,subjects:[
-{code:"BCA301",name:"Java Programming and Dynamic Web Design",units:[
-["Unit 1 • Java foundations",["Java features, JVM, JRE and JDK","Program structure, tokens, data types and variables","Operators, expressions and control statements","Arrays and strings"]],
-["Unit 2 • Object-oriented Java",["Classes, objects, methods and constructors","Inheritance, polymorphism, abstraction and interfaces","Packages and access modifiers","Exception handling"]],
-["Unit 3 • Core Java",["Multithreading and thread life cycle","File and stream handling","Collections framework basics","Event handling and GUI fundamentals"]],
-["Unit 4 • Web foundations",["Internet, WWW, HTTP and client-server model","HTML document structure, links, images, lists and tables","Forms and semantic HTML","CSS selectors, box model and layouts"]],
-["Unit 5 • Dynamic web design",["JavaScript basics, variables and operators","Conditions, loops and functions","DOM and event handling","Form validation and simple interactive pages"]]]},
-{code:"BCA302",name:"Operating System",units:[
-["Unit 1 • OS introduction",["Operating system goals, functions and services","Types of operating systems","System calls and system programs","OS structures and boot process"]],
-["Unit 2 • Process management",["Processes and process states","Process scheduling and scheduling algorithms","Threads and inter-process communication","Process synchronization and critical section"]],
-["Unit 3 • Deadlocks",["Deadlock conditions and resource allocation","Deadlock prevention, avoidance and detection","Recovery from deadlock"]],
-["Unit 4 • Memory management",["Contiguous memory allocation","Paging and segmentation","Virtual memory and demand paging","Page replacement algorithms"]],
-["Unit 5 • Storage and file systems",["File concepts, directories and access methods","Disk structure and disk scheduling","I/O systems and device management","Protection and security basics"]]]},
-{code:"BCA303",name:"Numerical Methods",units:[
-["Unit 1 • Errors and equations",["Approximation and sources of error","Absolute, relative and percentage errors","Bisection and Regula-Falsi methods","Newton-Raphson method"]],
-["Unit 2 • Linear equations",["Solution of simultaneous equations","Gauss elimination and Gauss-Jordan methods","LU decomposition","Iterative methods: Jacobi and Gauss-Seidel"]],
-["Unit 3 • Interpolation",["Finite differences","Newton forward and backward interpolation","Lagrange interpolation","Divided differences"]],
-["Unit 4 • Numerical differentiation and integration",["Numerical differentiation","Trapezoidal rule","Simpson's 1/3 and 3/8 rules"]],
-["Unit 5 • Differential equations",["Euler method","Modified Euler method","Runge-Kutta methods","Numerical solution practice"]]]},
-{code:"BCA305",name:"Human Values and Environmental Studies",units:[["Study outline",["Human values, ethics and responsibility","Self, family, society and professional values","Environment and ecosystems","Natural resources and conservation","Biodiversity and pollution","Climate change, sustainable development and environmental protection"]]]},
-{code:"BCA301 P",name:"Practical Lab • Java",units:[["Practice tasks",["Compile and run basic Java programs","Use classes, objects and constructors","Implement inheritance and interfaces","Handle exceptions","Create threads and file programs","Build a simple HTML/CSS/JavaScript page"]]]},
-{code:"BCA302 P",name:"Practical Lab • Operating System",units:[["Practice tasks",["Practice operating-system commands","Create and manage files/directories","Demonstrate process and scheduling concepts","Practice shell scripting basics","Observe memory and disk utilities"]]]}
-]},
-{sem:4,subjects:[
-{code:"BCA401",name:"Introduction to DBMS",units:[
-["Unit 1 • Database foundations",["Database system concepts and applications","DBMS versus file system","Database architecture and data independence","Data models and ER model"]],
-["Unit 2 • Relational model and SQL",["Tables, tuples, attributes and keys","Integrity constraints","Relational algebra basics","DDL, DML, DCL and TCL","SQL queries, joins, views and subqueries"]],
-["Unit 3 • Database design",["Functional dependencies","Normalization: 1NF, 2NF, 3NF and BCNF","Lossless decomposition and dependency preservation","ER-to-relational mapping"]],
-["Unit 4 • Transactions",["Transaction concepts and ACID properties","Schedules and serializability","Concurrency control and locking","Deadlocks and recovery"]],
-["Unit 5 • Database implementation",["Indexing and hashing","Query processing and optimization","Backup and recovery","Database security and user privileges"]]]},
-{code:"BCA402",name:"Design and Analysis of Algorithm",units:[
-["Unit 1 • Algorithm analysis",["Algorithm definition and characteristics","Time and space complexity","Asymptotic notations: O, Ω and Θ","Best, average and worst-case analysis"]],
-["Unit 2 • Divide and conquer",["Recurrence relations","Binary search","Merge sort and quick sort","Strassen matrix multiplication overview"]],
-["Unit 3 • Greedy method",["Greedy strategy and correctness","Fractional knapsack","Job sequencing","Huffman coding","Minimum spanning trees and shortest paths"]],
-["Unit 4 • Dynamic programming",["Principle of optimality","0/1 knapsack","Matrix chain multiplication","Longest common subsequence","Floyd-Warshall algorithm"]],
-["Unit 5 • Graph and complexity",["Backtracking and branch-and-bound","Graph traversal: BFS and DFS","NP-hard and NP-complete overview","Algorithm comparison and case studies"]]]},
-{code:"BCA403",name:"Software Engineering",units:[
-["Unit 1 • Introduction and process models",["Software characteristics and software crisis","Software development life cycle","Waterfall, prototype, spiral and agile models","Feasibility study and project planning"]],
-["Unit 2 • Requirements analysis",["Functional and non-functional requirements","Requirement elicitation and analysis","SRS document","Use-case and context diagrams"]],
-["Unit 3 • Design",["Design principles and modularity","Architectural and detailed design","Cohesion and coupling","UML diagrams and interface design"]],
-["Unit 4 • Testing",["Verification and validation","Unit, integration, system and acceptance testing","Black-box and white-box testing","Debugging and test documentation"]],
-["Unit 5 • Maintenance and management",["Software maintenance types","Configuration and change management","Project estimation and scheduling","Risk management and software quality assurance"]]]},
-{code:"AECC 4",name:"Physical Education and Yoga",units:[["Study outline",["Physical education: meaning, aims and importance","Fitness components and health benefits","Yoga principles, asanas and pranayama","Warm-up, cool-down and exercise safety","Lifestyle, nutrition and stress management"]]]},
-{code:"BCA401 P",name:"Practical Lab • DBMS",units:[["Practice tasks",["Create databases and tables using SQL","Apply primary and foreign keys","Write SELECT, WHERE, ORDER BY and GROUP BY queries","Practice joins, subqueries and views","Use INSERT, UPDATE and DELETE","Create a small normalized database project"]]]},
-{code:"BCA402 P",name:"Practical Lab • DAA",units:[["Practice tasks",["Implement linear and binary search","Implement bubble, selection and insertion sort","Implement merge sort and quick sort","Implement BFS and DFS","Solve knapsack or shortest-path problems","Compare runtime for sample input sizes"]]]}
-]},
-  {sem:5,subjects:[
-{code:"BCA501 T",name:"Computer Graphics and Animation",units:[
-["Unit 1 • Graphics fundamentals",["Applications of computer graphics","Display devices and graphics systems","Pixels, resolution and frame buffer","Line and circle drawing algorithms"]],
-["Unit 2 • 2D transformations",["Coordinate systems and points","Translation, scaling and rotation","Reflection and shearing","Composite transformations"]],
-["Unit 3 • Viewing and clipping",["Window and viewport concepts","2D viewing pipeline","Line and polygon clipping","Visible surface concepts"]],
-["Unit 4 • 3D graphics",["3D coordinates and transformations","Projections: parallel and perspective","Curves and surfaces","Lighting and shading basics"]],
-["Unit 5 • Animation",["Animation principles and key frames","Motion paths and interpolation","Raster animation and rendering","Animation workflow and export"]]]},
-{code:"BCA502 T",name:"Web and Internet Technologies",units:[
-["Unit 1 • Internet foundations",["Internet architecture and services","IP addressing, DNS and URLs","HTTP/HTTPS and web browsers","Web servers and hosting concepts"]],
-["Unit 2 • HTML and CSS",["HTML5 structure and semantic elements","Forms, tables, media and hyperlinks","CSS selectors, box model and positioning","Responsive design and media queries"]],
-["Unit 3 • JavaScript",["Variables, data types and operators","Functions, arrays and objects","DOM manipulation and events","Form validation and browser storage"]],
-["Unit 4 • Web application concepts",["Client-server architecture","Cookies, sessions and authentication concepts","JSON and asynchronous requests","Web security basics"]],
-["Unit 5 • Deployment and tools",["Version control with Git and GitHub","Static website hosting with GitHub Pages","Testing, debugging and accessibility","Website optimization and maintenance"]]]},
-{code:"BCA511",name:"Artificial Intelligence (Elective)",units:[
-["Unit 1 • AI foundations",["Definition, history and applications of AI","Intelligent agents and environments","Problem formulation and state-space search"]],
-["Unit 2 • Search techniques",["Uninformed search: BFS and DFS","Uniform-cost and depth-limited search","Heuristic search and A*","Game playing and minimax"]],
-["Unit 3 • Knowledge representation",["Propositional and predicate logic","Rules, semantic networks and frames","Inference and reasoning"]],
-["Unit 4 • Handling uncertainty",["Probability basics and Bayesian reasoning","Fuzzy logic concepts","Decision-making under uncertainty"]],
-["Unit 5 • Learning and applications",["Machine learning overview","Expert systems and knowledge bases","Natural language processing and robotics overview","AI ethics and responsible use"]]]},
-{code:"AECC-5",name:"Awareness and Digital Ability",units:[["Study outline",["Digital literacy and responsible technology use","Computer and internet safety","Online communication and collaboration","Digital payments and cyber hygiene","Information search and evaluation","Digital services and e-governance awareness"]]]},
-{code:"BCA505",name:"Minor Project",units:[["Project steps",["Choose a practical problem and define objectives","Collect requirements and prepare scope","Study similar systems and plan features","Design UI, database and system flow","Develop the project in small modules","Test, debug and prepare documentation","Prepare demonstration and final report"]]]},
-{code:"BCA506",name:"Viva-Voce on Minor Project",units:[["Viva preparation",["Explain problem statement and objectives","Explain tools, languages and technologies used","Explain system architecture and database design","Demonstrate key modules and test cases","Discuss limitations and future enhancements"]]]},
-{code:"BCA501 P",name:"Practical Lab • Computer Graphics and Animation",units:[["Practice tasks",["Draw pixels, lines and circles","Implement 2D transformations","Practice clipping and viewport mapping","Create simple 3D scenes","Prepare a short key-frame animation"]]]},
-{code:"BCA502 P",name:"Practical Lab • Web and Internet Technologies",units:[["Practice tasks",["Build a multi-page HTML website","Style pages using responsive CSS","Add JavaScript form validation","Use DOM events and local storage","Publish a website using GitHub Pages"]]]}
-]},
-{sem:6,subjects:[
-{code:"BCA601",name:"Information Security",units:[
-["Unit 1 • Security foundations",["Information security goals: confidentiality, integrity and availability","Threats, vulnerabilities and attacks","Security policies, risk and controls","Security services and mechanisms"]],
-["Unit 2 • Cryptography",["Classical encryption concepts","Symmetric and asymmetric cryptography","DES and AES overview","RSA and key exchange concepts","Hash functions and digital signatures"]],
-["Unit 3 • Authentication and access control",["User identification and authentication","Passwords and multi-factor authentication","Access control models","Digital certificates and PKI"]],
-["Unit 4 • Network and system security",["Network threats and secure protocols","Firewalls, IDS and IPS","Malware, ransomware and social engineering","Web and wireless security"]],
-["Unit 5 • Security management",["Backup and disaster recovery","Incident response","Security auditing and awareness","Cyber laws, privacy and ethical responsibilities"]]]},
-{code:"BCA602",name:"Theory of Computation",units:[
-["Unit 1 • Automata basics",["Symbols, alphabets, strings and languages","Finite automata and state diagrams","Deterministic finite automata (DFA)","Non-deterministic finite automata (NFA)","DFA-NFA equivalence"]],
-["Unit 2 • Regular languages",["Regular expressions","Regular languages and closure properties","Pumping lemma for regular languages","Finite automata minimization"]],
-["Unit 3 • Context-free languages",["Context-free grammars and derivations","Parse trees and ambiguity","Chomsky normal form and Greibach normal form","Pushdown automata"]],
-["Unit 4 • Turing machines",["Turing machine model and configurations","Designing simple Turing machines","Variants of Turing machines","Decidability and recognizable languages"]],
-["Unit 5 • Computability and complexity",["Recursive and recursively enumerable languages","Decidable and undecidable problems","Halting problem","P, NP and NP-completeness introduction"]]]},
-{code:"BCA612",name:"Machine Learning (Elective)",units:[
-["Unit 1 • ML foundations",["What is machine learning and its applications","Supervised, unsupervised and reinforcement learning","Dataset, features, labels and train/test split","Data cleaning and preprocessing"]],
-["Unit 2 • Regression",["Simple and multiple linear regression","Loss functions and gradient descent","Model evaluation: MAE, MSE and R-squared"]],
-["Unit 3 • Classification",["Logistic regression","K-nearest neighbours","Decision trees and random forests","Naive Bayes and support vector machines","Confusion matrix, precision, recall and F1-score"]],
-["Unit 4 • Unsupervised learning",["Clustering concepts","K-means clustering","Hierarchical clustering","Dimensionality reduction and PCA overview"]],
-["Unit 5 • Model improvement",["Overfitting and underfitting","Bias-variance trade-off","Cross-validation and hyperparameter tuning","Ethics, fairness and limitations of ML"]]]},
-{code:"AECC-6",name:"Communication Skills and Personality Development",units:[["Study outline",["Communication process and barriers","Listening, speaking, reading and writing skills","Presentation and public speaking","Group discussion and interview skills","Resume, email and professional etiquette","Teamwork, leadership and time management"]]]},
-{code:"BCA603",name:"Major Project",units:[["Project workflow",["Identify problem and project objectives","Prepare feasibility and requirement specification","Design architecture, database and UI","Implement modules using chosen technologies","Perform unit, integration and system testing","Prepare user manual and project report","Deploy project and prepare final demonstration"]]]},
-{code:"BCA604",name:"Presentation / Seminar based on Major Project",units:[["Presentation preparation",["Prepare project abstract and problem statement","Explain literature/background and methodology","Present architecture, modules and technology stack","Demonstrate working project","Present results, limitations and future scope","Prepare slides and practise viva questions"]]]}
-]}
-];
+  <main class="wrap">
+    <section class="hero">
+      <span class="eyebrow" id="semesterBadge">BCA • Semester I</span>
+      <h1>Syllabus Progress Checklist</h1>
+      <p class="hello" id="greeting">Hello! Welcome</p>
+      <p class="sub">Track every subject, unit &amp; topic across laptop &amp; mobile.</p>
 
-const KEY="bcaStudyHubProgress_v1";
-let progress={};
-try{
-progress=JSON.parse(localStorage.getItem(KEY)||"{}")
-}catch(e){}
-let active=1;
-const $=id=>document.getElementById(id);
+      <div class="actions">
+        <button class="btn" id="themeBtn">🌙 Dark</button>
+        <button class="btn google" id="loginBtn"><span class="google-mark">G</span> Sign in with Google</button>
+        <button class="btn hidden" id="logoutBtn">Sign out</button>
+        <button class="btn danger" id="resetBtn">Reset All Progress</button>
+      </div>
+      <div class="userline" id="userLine">Sign in to sync your progress across devices.</div>
 
-function save(){
-localStorage.setItem(KEY,JSON.stringify(progress));
-renderStats()
-}
+      <div class="rule"></div>
+      <p class="section-label">SELECT BCA YEAR</p>
+      <div class="year-buttons" id="yearButtons">
+        <button class="year-btn active" data-year="1">1st Year (Semester I)</button>
+        <button class="year-btn" data-year="2">2nd Year (Semester III)</button>
+        <button class="year-btn" data-year="3">3rd Year (Semester V)</button>
+      </div>
+      <p class="note" id="yearNote">Choose a year to view its semester subjects and topics.</p>
+      <div class="rule"></div>
 
-function idFor(s,sub,u,t){
-return [s,sub.code,u,t].join("::")
-}
+      <div class="stats">
+        <div><span class="percent" id="percent">0%</span></div>
+        <div class="overall">overall completed</div>
+        <div class="stat"><strong id="doneCount">0</strong> done</div>
+        <div class="stat"><strong id="remainingCount">0</strong> remaining</div>
+        <div class="stat"><strong id="totalCount">0</strong> total topics</div>
+      </div>
+      <div class="progress"><span id="overallBar"></span></div>
+    </section>
 
-function allItems(){
-let a=[];
-curriculum.forEach(s=>
-s.subjects.forEach(sub=>
-sub.units.forEach((u,ui)=>
-u[1].forEach((t,ti)=>
-a.push({
-id:idFor(s.sem,sub,ui,ti),
-text:t,
-sem:s.sem,
-sub:sub.name
-})
-)
-)
-)
-);
-return a
-}
+    <nav class="tabs" id="subjectTabs" aria-label="Subject filters"></nav>
+    <section id="subjects"></section>
 
-function renderStats(){
-let a=allItems();
-let d=a.filter(x=>progress[x.id]).length;
-let p=a.length?Math.round(d/a.length*100):0;
-$("done").textContent=d;
-$("total").textContent=a.length;
-$("percent").textContent=p+"%";
-$("overall").style.width=p+"%"
-}
+    <section class="admin hidden" id="adminSection">
+      <div class="admin-card">
+        <div class="admin-head">
+          <div><p class="section-label">ADMIN PANEL</p><h2>Student Progress Dashboard</h2></div>
+          <button class="btn primary" id="refreshAdmin">Refresh</button>
+        </div>
+        <p class="note">Only the configured admin account can load this list. Students can see only their own progress.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Student</th><th>Gmail</th><th>Year</th><th>Completed</th><th>Progress</th></tr></thead>
+            <tbody id="adminRows"><tr><td colspan="5">Admin dashboard will appear after sign-in.</td></tr></tbody>
+          </table>
+        </div>
+        <div class="notice">Admin access is also controlled by Firestore Security Rules. Do not rely only on hiding this panel in the browser.</div>
+      </div>
+    </section>
+    <footer>BCA Syllabus Progress Checklist • Your progress syncs after Google sign-in.</footer>
+  </main>
 
-function renderNav(){
-$("semnav").innerHTML=curriculum.map(s=>
-`<button class="${s.sem===active?'active':''}" data-sem="${s.sem}">Semester ${s.sem}</button>`
-).join("");
+  <script type="module">
+    // Replace these values with your Firebase project's Web App config.
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+    import {
+      getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult,
+      onAuthStateChanged, signOut
+    } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+    import {
+      getFirestore, doc, getDoc, setDoc, collection, getDocs, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
-$("semnav").querySelectorAll("button").forEach(b=>
-b.onclick=()=>{
-active=+b.dataset.sem;
-render()
-}
-)
-}
+    const firebaseConfig = {
+      apiKey: "PASTE_API_KEY",
+      authDomain: "PASTE_PROJECT_ID.firebaseapp.com",
+      projectId: "PASTE_PROJECT_ID",
+      storageBucket: "PASTE_STORAGE_BUCKET_FROM_FIREBASE",
+      messagingSenderId: "PASTE_MESSAGING_SENDER_ID",
+      appId: "PASTE_APP_ID"
+    };
 
-function render(){
-renderNav();
+    // Apna admin Gmail yahan likhein.
+    const ADMIN_EMAIL = "YOUR_ADMIN_GMAIL@gmail.com".toLowerCase();
 
-let q=$("search").value.trim().toLowerCase();
-let f=$("filter").value;
-let sem=curriculum.find(x=>x.sem===active);
-let out=[];
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: "select_account" });
 
-sem.subjects.forEach(sub=>{
-let unitHtml=[];
+    // Curriculum topics: latest university syllabus se cross-check karein.
+    const curriculum = {
+      1: {
+        label: "BCA 1st Year • Semester I",
+        subjects: [
+          {code:"BCA101",name:"Computer Fundamentals",desc:"Computer basics, hardware and software",topics:["Introduction to computers","Characteristics and limitations of computers","Generations of computers","Classification of computers","Applications of computers","Input devices","Output devices","CPU and its components","Primary memory","Secondary memory","RAM and ROM","Storage devices","System software","Application software","Operating system basics","Number systems","Binary number system","Decimal, octal and hexadecimal systems","Number system conversions","Computer codes","ASCII and Unicode","Computer networks introduction","Internet and its uses","Cyber security basics","Computer viruses and malware"]},
+          {code:"BCA102",name:"Programming in C",desc:"Programming fundamentals and problem solving",topics:["Algorithm and flowchart","Structure of a C program","Character set and tokens","Keywords and identifiers","Constants and variables","Data types","Input and output functions","Operators and expressions","Operator precedence","Decision making with if","if-else statement","Nested if","Switch statement","while loop","do-while loop","for loop","Nested loops","break and continue","Arrays","One-dimensional arrays","Two-dimensional arrays","Strings","String library functions","Functions","Function declaration and definition","Call by value","Recursion","Pointers","Pointer arithmetic","Structures","Unions","File handling basics"]},
+          {code:"BCA103",name:"Mathematics-I",desc:"Foundations of mathematics",topics:["Sets and types of sets","Set operations","Relations","Functions","Types of functions","Mathematical logic","Propositions","Truth tables","Matrices","Types of matrices","Matrix operations","Determinants","Properties of determinants","Inverse of a matrix","Linear equations","Permutations","Combinations","Binomial theorem","Sequences and series","Arithmetic progression","Geometric progression","Limits","Continuity","Differentiation","Applications of derivatives"]},
+          {code:"BCA104",name:"Digital Electronics",desc:"Digital logic and basic circuits",topics:["Analog and digital signals","Binary arithmetic","Logic gates","Universal gates","Boolean algebra","Boolean laws","De Morgan's theorems","Boolean expressions","K-map introduction","Simplification using K-map","Half adder","Full adder","Half subtractor","Full subtractor","Multiplexers","Demultiplexers","Encoders","Decoders","Flip-flops","Registers","Counters","Combinational circuits","Sequential circuits","Memory devices"]},
+          {code:"BCA105",name:"Communication Skills",desc:"Language and professional communication",topics:["Communication process","Types of communication","Verbal communication","Non-verbal communication","Barriers to communication","Listening skills","Speaking skills","Reading comprehension","Writing skills","Paragraph writing","Precis writing","Business correspondence","Formal letters","Email writing","Report writing","Presentation skills","Group discussion","Interview skills","Vocabulary building","Grammar essentials"]}
+        ]
+      },
+      2: {
+        label: "BCA 2nd Year • Semester III",
+        subjects: [
+          {code:"BCA301T",name:"JAVA & Web Design",desc:"Object-oriented programming and web fundamentals",topics:["Introduction to Java","Features of Java","JDK, JRE and JVM","Structure of a Java program","Data types and variables","Operators","Control statements","Loops","Arrays","Strings","Classes and objects","Constructors","Method overloading","Inheritance","Method overriding","Polymorphism","Abstraction","Encapsulation","Interfaces","Packages","Exception handling","Multithreading","File handling","HTML introduction","HTML document structure","Text formatting tags","Lists and links","Images and tables","HTML forms","CSS introduction","CSS selectors","Colors and backgrounds","Box model","CSS positioning","Responsive web design","JavaScript introduction","Variables and data types in JavaScript","Functions","Events","DOM basics","Form validation"]},
+          {code:"BCA302T",name:"Data Structures",desc:"Linear and non-linear data organization",topics:["Introduction to data structures","Abstract data types","Algorithm analysis","Time complexity","Space complexity","Arrays","Array operations","Sparse matrices","Linked lists","Singly linked list","Doubly linked list","Circular linked list","Stack","Stack operations","Stack applications","Queue","Circular queue","Deque","Priority queue","Recursion","Searching techniques","Linear search","Binary search","Sorting techniques","Bubble sort","Selection sort","Insertion sort","Merge sort","Quick sort","Trees","Binary trees","Tree traversals","Binary search tree","Graphs","Graph representation","Breadth-first search","Depth-first search","Hashing","Collision handling"]},
+          {code:"BCA303T",name:"Computer Organization",desc:"Computer architecture and organization",topics:["Basic computer organization","Functional units of a computer","Instruction cycle","Instruction formats","Addressing modes","Register organization","Bus structures","Arithmetic logic unit","Fixed point representation","Floating point representation","Addition and subtraction","Multiplication algorithms","Division algorithms","Memory hierarchy","Cache memory","Main memory","Virtual memory","Input-output organization","Programmed I/O","Interrupt-driven I/O","DMA","Pipelining","RISC architecture","CISC architecture","Parallel processing"]},
+          {code:"BCA304T",name:"Mathematics-III",desc:"Discrete mathematics and related concepts",topics:["Set theory revision","Relations and properties","Equivalence relations","Partial order relations","Functions and composition","Mathematical induction","Propositional logic","Predicate logic","Logical equivalences","Normal forms","Methods of proof","Counting principles","Pigeonhole principle","Permutations and combinations","Recurrence relations","Generating functions","Introduction to graph theory","Types of graphs","Paths and circuits","Connected graphs","Trees and spanning trees","Planar graphs","Graph coloring","Boolean algebra","Lattices"]},
+          {code:"BCA305T",name:"Operating Systems",desc:"Operating system concepts and management",topics:["Introduction to operating systems","Evolution of operating systems","Types of operating systems","Operating system services","System calls","Process concept","Process states","Process control block","CPU scheduling","FCFS scheduling","SJF scheduling","Priority scheduling","Round robin scheduling","Threads","Process synchronization","Critical section problem","Semaphores","Deadlocks","Deadlock prevention","Deadlock avoidance","Memory management","Contiguous memory allocation","Paging","Segmentation","Virtual memory","Page replacement algorithms","File system concepts","Directory structures","Disk scheduling","Device management"]}
+        ]
+      },
+      3: {
+        label: "BCA 3rd Year • Semester V",
+        subjects: [
+          {code:"BCA501T",name:"Database Management Systems",desc:"Database concepts, SQL and normalization",topics:["Database system introduction","File system vs DBMS","Database architecture","Data models","ER model","Entities and attributes","Relationships","ER diagrams","Relational model","Keys in DBMS","Relational algebra","SQL introduction","DDL commands","DML commands","DCL and TCL","SELECT queries","Joins","Subqueries","Aggregate functions","Views","Indexes","Functional dependencies","Normalization","1NF","2NF","3NF","BCNF","Transactions","ACID properties","Concurrency control","Database recovery","Backup and security"]},
+          {code:"BCA502T",name:"Python Programming",desc:"Python language and application development",topics:["Python introduction","Installing Python","Python syntax","Variables and data types","Operators","Input and output","Conditional statements","Loops","Strings","Lists","Tuples","Sets","Dictionaries","Functions","Lambda functions","Modules and packages","File handling","Exception handling","Object-oriented programming","Classes and objects","Inheritance","Polymorphism","Regular expressions","Date and time","Introduction to libraries"]},
+          {code:"BCA503T",name:"Computer Networks",desc:"Network models, protocols and security",topics:["Network introduction","Network topologies","Network types","OSI reference model","TCP/IP model","Transmission media","Guided media","Unguided media","Switching techniques","Data link layer","Error detection","Flow control","MAC protocols","Ethernet","Network layer","IP addressing","IPv4","IPv6","Subnetting","Routing algorithms","Transport layer","TCP","UDP","Application layer","DNS","HTTP and HTTPS","Email protocols","Network security basics"]},
+          {code:"BCA504T",name:"Software Engineering",desc:"Software process and project management",topics:["Software engineering introduction","Software characteristics","Software development life cycle","Waterfall model","Prototype model","Spiral model","Agile development","Requirement analysis","Feasibility study","SRS document","System design","Architectural design","Modular design","Coding standards","Software testing","Unit testing","Integration testing","System testing","Acceptance testing","Black box testing","White box testing","Software maintenance","Project planning","Cost estimation","Risk management"]}
+        ]
+      }
+    };
+        let currentYear = 1;
+    let activeSubject = "all";
+    let currentUser = null;
+    let progress = {};
+    let saveTimer = null;
 
-sub.units.forEach((u,ui)=>{
-let tasks=u[1].map((t,ti)=>({
-t,
-id:idFor(sem.sem,sub,ui,ti)
-})).filter(x=>
-(!q||(sub.name+" "+x.t+" "+u[0]).toLowerCase().includes(q))&&
-(f==="all"||
-(f==="done"&&progress[x.id])||
-(f==="pending"&&!progress[x.id]))
-);
+    const $ = id => document.getElementById(id);
+    const allTopics = () => curriculum[currentYear].subjects.flatMap(s => s.topics.map((t,i)=>`${s.code}_${i}`));
+    const isDone = id => progress[id] === true;
+    const counts = () => {
+      const ids = allTopics(), done = ids.filter(isDone).length;
+      return {done,total:ids.length,remaining:ids.length-done,pct:ids.length?Math.round(done/ids.length*100):0};
+    };
 
-if(tasks.length){
-unitHtml.push(`
-<details class="unit" open>
-<summary>${u[0]}</summary>
-<ul class="topics">
-${tasks.map(x=>`
-<li>
-<label>
-<input type="checkbox" data-id="${x.id}" ${progress[x.id]?"checked":""}>
-<span>${x.t}</span>
-</label>
-</li>
-`).join("")}
-</ul>
-</details>
-`)
-}
-});
+    function renderStats(){
+      const c=counts();
+      $("percent").textContent=c.pct+"%";
+      $("doneCount").textContent=c.done;
+      $("remainingCount").textContent=c.remaining;
+      $("totalCount").textContent=c.total;
+      $("overallBar").style.width=c.pct+"%";
+      $("semesterBadge").textContent=curriculum[currentYear].label;
+    }
 
-if(unitHtml.length){
-let ids=allItems().filter(x=>x.sem===sem.sem&&x.sub===sub.name);
-let d=ids.filter(x=>progress[x.id]).length;
+    function renderTabs(){
+      const tabs=$("subjectTabs");
+      tabs.innerHTML="";
+      const all=document.createElement("button");
+      all.className="tab "+(activeSubject==="all"?"active":"");
+      all.textContent="All Subjects";
+      all.onclick=()=>{activeSubject="all";render();};
+      tabs.append(all);
 
-out.push(`
-<article class="subject">
-<div class="meta">${sub.code} • ${d}/${ids.length} topics done</div>
-<h3>${sub.name}</h3>
-${unitHtml.join("")}
-<div class="smallbar">
-<span>Subject progress</span>
-<span>${ids.length?Math.round(d/ids.length*100):0}%</span>
-</div>
-<div class="progress">
-<i style="width:${ids.length?d/ids.length*100:0}%"></i>
-</div>
-</article>
-`)
-}
-});
+      curriculum[currentYear].subjects.forEach(s=>{
+        const b=document.createElement("button");
+        const n=s.topics.filter((t,i)=>isDone(`${s.code}_${i}`)).length;
+        const p=Math.round(n/s.topics.length*100);
+        b.className="tab "+(activeSubject===s.code?"active":"");
+        b.innerHTML=`${s.name} <small>${p}%</small>`;
+        b.onclick=()=>{activeSubject=s.code;render();};
+        tabs.append(b);
+      });
+    }
 
-$("courses").innerHTML=out.length?out.join(""):`
-<div class="empty">No matching topics. Try another search or filter.</div>
-`;
+    function renderSubjects(){
+      const root=$("subjects");
+      root.innerHTML="";
+      const list=curriculum[currentYear].subjects.filter(s=>activeSubject==="all"||s.code===activeSubject);
 
-$("courses").querySelectorAll('input[type="checkbox"]').forEach(c=>
-c.onchange=()=>{
-progress[c.dataset.id]=c.checked;
-save();
-render()
-}
-);
+      list.forEach(s=>{
+        const done=s.topics.filter((t,i)=>isDone(`${s.code}_${i}`)).length;
+        const pct=Math.round(done/s.topics.length*100);
+        const card=document.createElement("article");
+        card.className="subject-card";
+        card.innerHTML=`<div class="subject-top"><div><span class="code">${s.code} · ${s.topics.length} Topics</span><h2>${s.name}</h2><p class="desc">${s.desc}</p></div><div class="subject-pct">${pct}%</div></div><div class="progress"><span style="width:${pct}%"></span></div><div class="topic-list" style="margin-top:17px"></div>`;
 
-renderStats()
-}
+        const topicList=card.querySelector(".topic-list");
 
-$("search").addEventListener("input",render);
-$("filter").addEventListener("change",render);
+        s.topics.forEach((topic,i)=>{
+          const id=`${s.code}_${i}`;
+          const done=isDone(id);
+          const label=document.createElement("label");
+          label.className="topic "+(done?"done":"");
+          const input=document.createElement("input");
+          input.type="checkbox";
+          input.checked=done;
+          input.addEventListener("change",()=>{
+            progress[id]=input.checked;
+            queueSave();
+            render();
+          });
+          const span=document.createElement("span");
+          span.textContent=topic;
+          label.append(input,span);
+          topicList.append(label);
+        });
+        root.append(card);
+      });
 
-$("reset").onclick=()=>{
-if(confirm("Reset all completed topics on this device?")){
-progress={};
-save();
-render()
-}
-};
+      if(!list.length) root.innerHTML='<div class="empty">No subjects found.</div>';
+    }
 
-render();
-</script>
+    function render(){
+      document.querySelectorAll(".year-btn").forEach(b=>
+        b.classList.toggle("active",Number(b.dataset.year)===currentYear)
+      );
+      $("yearNote").textContent=currentYear===1
+        ?"1st Year • Semester I"
+        :currentYear===2
+        ?"2nd Year • Semester III"
+        :"3rd Year • Semester V";
+      renderStats();
+      renderTabs();
+      renderSubjects();
+    }
+
+    document.querySelectorAll(".year-btn").forEach(b=>
+      b.addEventListener("click",()=>{
+        currentYear=Number(b.dataset.year);
+        activeSubject="all";
+        render();
+      })
+    );
+
+    function applyTheme(dark){
+      document.body.classList.toggle("dark",dark);
+      $("themeBtn").textContent=dark?"☀️ Light":"🌙 Dark";
+      localStorage.setItem("bcaTheme",dark?"dark":"light");
+    }
+
+    applyTheme(localStorage.getItem("bcaTheme")==="dark");
+    $("themeBtn").onclick=()=>applyTheme(!document.body.classList.contains("dark"));
+
+    function updateAuthUI(user){
+      currentUser=user;
+      $("loginBtn").classList.toggle("hidden",!!user);
+      $("logoutBtn").classList.toggle("hidden",!user);
+      $("userLine").innerHTML=user
+        ?`Signed in as <strong>${escapeHtml(user.displayName||"Student")}</strong> · ${escapeHtml(user.email||"")}`
+        :"Sign in to sync your progress across devices.";
+      $("greeting").textContent=user
+        ?`Hello, ${user.displayName?.split(" ")[0]||"Student"}!`
+        :"Hello! Welcome";
+      $("adminSection").classList.toggle("hidden",!(user&&user.email?.toLowerCase()===ADMIN_EMAIL));
+    }
+
+    function escapeHtml(value){
+      return String(value).replace(/[&<>"']/g,c=>({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[c]));
+    }
+
+    async function loadProgress(user){
+      try{
+        const snap=await getDoc(doc(db,"students",user.uid));
+        progress=snap.exists()?(snap.data().progress||{ }):{};
+      }catch(e){
+        console.error(e);
+        alert("Progress load nahi hua. Firebase Firestore Rules aur configuration check karein.");
+        progress={};
+      }
+      render();
+    }
+
+    async function saveProgress(){
+      if(!currentUser)return;
+      try{
+        await setDoc(doc(db,"students",currentUser.uid),{
+          uid:currentUser.uid,
+          name:currentUser.displayName||"Student",
+          email:currentUser.email||"",
+          photoURL:currentUser.photoURL||"",
+          year:currentYear,
+          progress,
+          updatedAt:serverTimestamp()
+        },{merge:true});
+      }catch(e){
+        console.error(e);
+        alert("Progress save nahi hua. Firestore Security Rules check karein.");
+      }
+    }
+
+    function queueSave(){
+      renderStats();
+      renderTabs();
+      clearTimeout(saveTimer);
+      saveTimer=setTimeout(saveProgress,500);
+    }
+
+    $("loginBtn").onclick=()=>signInWithRedirect(auth,provider);
+    $("logoutBtn").onclick=()=>signOut(auth);
+
+    $("resetBtn").onclick=async()=>{
+      if(!confirm("Kya aap is account ka saved progress reset karna chahte hain?"))return;
+      progress={};
+      render();
+      await saveProgress();
+    };
+
+    $("refreshAdmin").onclick=loadAdmin;
+
+    async function loadAdmin(){
+      if(!currentUser||currentUser.email?.toLowerCase()!==ADMIN_EMAIL)return;
+      const body=$("adminRows");
+      body.innerHTML="<tr><td colspan='5'>Loading students...</td></tr>";
+
+      try{
+        const snap=await getDocs(collection(db,"students"));
+        if(snap.empty){
+          body.innerHTML="<tr><td colspan='5'>Abhi koi student registered nahi hai.</td></tr>";
+          return;
+        }
+
+        body.innerHTML="";
+        snap.forEach(d=>{
+          const x=d.data();
+          const p=x.progress||{};
+          const done=Object.values(p).filter(Boolean).length;
+          const total=Object.keys(p).length;
+          const pct=total?Math.round(done/total*100):0;
+          const tr=document.createElement("tr");
+          tr.innerHTML=`<td>${escapeHtml(x.name||"Student")}</td><td>${escapeHtml(x.email||"")}</td><td>${escapeHtml(String(x.year||"-"))}</td><td>${done}</td><td><span class="pill">${pct}%</span></td>`;
+          body.append(tr);
+        });
+      }catch(e){
+        console.error(e);
+        body.innerHTML="<tr><td colspan='5'>Students load nahi hue. Firestore Rules me admin email check karein.</td></tr>";
+      }
+    }
+
+    try{
+      await getRedirectResult(auth);
+    }catch(e){
+      console.error("Google sign-in:",e);
+      alert("Google sign-in nahi hua: "+e.message);
+    }
+
+    onAuthStateChanged(auth,async user=>{
+      updateAuthUI(user);
+      if(user){
+        await loadProgress(user);
+        if(user.email?.toLowerCase()===ADMIN_EMAIL)await loadAdmin();
+      }else{
+        progress={};
+        render();
+      }
+    });
+
+    render();
+  </script>
 </body>
 </html>
