@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071326">
+  <meta name="description" content="BCA syllabus progress checklist by Shivansh Maurya">
+  <title>BCA Syllabus Checklist | Shivansh Maurya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="BCA Checklist home">
+        <span class="brand-mark">S<span>.</span></span>
+        <span><strong>SHIVANSH MAURYA</strong><small>STUDENT WORKSPACE</small></span>
+      </a>
+      <div class="top-actions">
+        <span class="save-state" id="saveState"><i></i> Saved on this device</span>
+        <button class="btn btn-outline" id="loginBtn">Continue with Google</button>
+        <div class="profile hidden" id="profileBox">
+          <img id="profilePic" alt="Profile picture">
+          <span id="profileName">Student</span>
+          <button class="icon-btn" id="logoutBtn" title="Sign out">↗</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR PERSONAL STUDY TRACKER</div>
+        <h1>BCA Syllabus<br><span>Checklist.</span></h1>
+        <p>One topic at a time. Track your learning, stay consistent, and see your progress grow.</p>
+        <div class="hero-meta"><span>✦ Built for focused learning</span><span>•</span><span>By Shivansh Maurya</span></div>
+      </div>
+      <div class="progress-card">
+        <div class="card-top"><span>OVERALL PROGRESS</span><span class="live-pill">LIVE</span></div>
+        <div class="progress-number"><strong id="overallPercent">0%</strong><span id="overallCount">0 / 0 topics</span></div>
+        <div class="progress-track"><div class="progress-fill" id="overallBar"></div></div>
+        <div class="progress-foot"><span id="doneCount">0 completed</span><span id="leftCount">0 remaining</span></div>
+        <div class="progress-glow"></div>
+      </div>
+    </section>
+
+    <section class="toolbar">
+      <div>
+        <div class="section-kicker">YOUR ACADEMIC SPACE</div>
+        <h2>Choose your semester</h2>
+      </div>
+      <div class="selectors">
+        <label class="select-wrap"><span>YEAR</span><select id="yearSelect"><option value="1">1st Year</option><option value="2">2nd Year</option></select></label>
+        <label class="select-wrap"><span>SEMESTER</span><select id="semesterSelect"></select></label>
+      </div>
+    </section>
+
+    <section class="subject-layout">
+      <aside class="subject-panel">
+        <div class="panel-heading"><span>SUBJECTS</span><span id="subjectTotal">0</span></div>
+        <nav id="subjectNav" class="subject-nav"></nav>
+        <div class="side-note"><span>✧</span><p><strong>Small steps add up.</strong><br>Tick off each topic as you complete it.</p></div>
+      </aside>
+      <section class="topics-panel">
+        <div class="topics-head">
+          <div><div class="section-kicker" id="subjectCode">SUBJECT 01</div><h2 id="subjectTitle">Select a subject</h2><p id="subjectSubtitle">Your topic checklist will appear here.</p></div>
+          <div class="subject-progress"><strong id="subjectPercent">0%</strong><span>SUBJECT DONE</span></div>
+        </div>
+        <div class="subject-track"><div id="subjectBar"></div></div>
+        <div class="topic-tools">
+          <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search topics..."></label>
+          <div class="filter-group" role="group" aria-label="Filter topics">
+            <button class="filter active" data-filter="all">All</button>
+            <button class="filter" data-filter="pending">Pending</button>
+            <button class="filter" data-filter="done">Completed</button>
+          </div>
+        </div>
+        <div id="topicList" class="topic-list"></div>
+        <div class="topics-bottom"><span id="visibleCount">Showing 0 topics</span><button id="resetBtn" class="text-btn">Reset progress</button></div>
+      </section>
+    </section>
+    <footer><span>© 2026 SHIVANSH MAURYA</span><span>LEARN • TRACK • ACHIEVE</span></footer>
+  </main>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
